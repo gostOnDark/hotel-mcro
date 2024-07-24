@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.hotel.admin.mapper.roomMapper">
+  <resultMap id="BaseResultMap" type="com.company.hotel.admin.entity.room">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="roomno" jdbcType="VARCHAR" property="roomno" />
+    <result column="aircondition" jdbcType="BIT" property="aircondition" />
+    <result column="bed" jdbcType="VARCHAR" property="bed" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, roomno, aircondition, bed, `status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from room
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from room
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.company.hotel.admin.entity.room">
+    insert into room (id, roomno, aircondition, 
+      bed, `status`)
+    values (#{id,jdbcType=VARCHAR}, #{roomno,jdbcType=VARCHAR}, #{aircondition,jdbcType=BIT}, 
+      #{bed,jdbcType=VARCHAR}, #{status,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.company.hotel.admin.entity.room">
+    insert into room
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roomno != null">
+        roomno,
+      </if>
+      <if test="aircondition != null">
+        aircondition,
+      </if>
+      <if test="bed != null">
+        bed,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="roomno != null">
+        #{roomno,jdbcType=VARCHAR},
+      </if>
+      <if test="aircondition != null">
+        #{aircondition,jdbcType=BIT},
+      </if>
+      <if test="bed != null">
+        #{bed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.company.hotel.admin.entity.room">
+    update room
+    <set>
+      <if test="roomno != null">
+        roomno = #{roomno,jdbcType=VARCHAR},
+      </if>
+      <if test="aircondition != null">
+        aircondition = #{aircondition,jdbcType=BIT},
+      </if>
+      <if test="bed != null">
+        bed = #{bed,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.company.hotel.admin.entity.room">
+    update room
+    set roomno = #{roomno,jdbcType=VARCHAR},
+      aircondition = #{aircondition,jdbcType=BIT},
+      bed = #{bed,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=BIT}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

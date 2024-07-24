@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.hotel.admin.mapper.UserMapper">
+    <resultMap id="baseUser" type="com.company.hotel.admin.entity.User">
+        <id column="id" property="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="username" property="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="password" property="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="usercode" property="usercode" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="tel" property="tel" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="rolename" property="rolename" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <id column="locked" property="locked" javaType="java.lang.Boolean" jdbcType="INTEGER" />
+    </resultMap>
+    <insert id="insertUser" parameterType="com.company.hotel.admin.entity.User">
+        intert into user(id, username, PASSWORD, usercode, tel, roleName, locked )
+        values(#{id,jdbcType=VARCHAR},
+        #{username,jdbcType=VARCHAR},
+        #{PASSWORD,jdbcType=VARCHAR},
+        #{usercode,jdbcType=VARCHAR},
+        #{tel,jdbcType=VARCHAR},
+        #{rolename,jdbcType=VARCHAR},
+        #{TINYINT,jdbcType=TINYINT})
+    </insert>
+
+    <select id="findUserByName" resultMap="baseUser" parameterType="String">
+        SELECT * FROM USER t
+        where t.username = #{name}
+    </select>
+    <update id="changeLock">
+        update user set locked = #{locked} where id = #{id}
+    </update>
+
+</mapper>

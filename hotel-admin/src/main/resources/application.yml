@@ -1,0 +1,39 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: hscm321
+    url: jdbc:mysql://localhost:3306/hotel-mcro?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
+#    password: Hscm321@
+#    url: jdbc:mysql://192.168.31.102:3306/hotel-mcro?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&useSSL=false
+#  thymeleaf:
+#    prefix: classpath:/html/
+#    suffix: .html
+#    mode: HTML5
+#    encoding: UTF-8
+#    content-type: text/html
+#    cache: false
+mybatis:
+  mapper-locations: classpath:com/company/hotel/admin/mapper/*.xml
+  type-aliases-package: com.company.hotel.admin.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+mapper:
+  identity: MYSQL
+  mappers: tk.mybatis.mapper.common.BaseMapper
+  not-empty: true
+  enum-as-simple-type: true
+#分页插件
+pagehelper:
+  helper-dialect: mysql
+  params: count=countSql
+  reasonable: true
+  support-methods-arguments: true
+#  logging:
+#    level: INFO # 设置日志级别，例如DEBUG、INFO、WARN、ERROR等
+#    logStatement: true # 是否打印SQL语句，默认为true
+#    logPrepareSql: true # 是否打印准备SQL语句，默认为true
+#    logExecuteTimeMs: true # 是否打印执行SQL所花费的时间，默认为true

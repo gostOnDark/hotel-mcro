@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>酒店管理系统</title>
+    <script type="text/javascript">
+        function toUserlist(){
+            window.localhost.href="/userPageInfo"},
+        function c(){
+            window.localhost.href="/logout"
+        },
+        var ws = new WebSocket("ws://localhost:8080");
+        ws.onopen = function(event){
+          console.log("WebSocket连接已经建立");
+        };
+        ws.onmessage = function(event){
+            console.log("接收消息："+event.data);
+        };
+        ws.onclose = function(event){
+            console.log("WebSocket连接已关闭");
+        };
+        ws.send("hello,WebSocket!");
+        ws.close();
+    </script>
+</head>
+<body>
+<h3 style="color:red" th:text="${msg}"></h3><br/>
+<h4>欢迎来到酒店管理系统</h4>
+<a href="/logout">退出</a>
+<a href="/userPageInfo?pageNum=0&pageSize=10&orderField=id&orderType=1">用户列表</a>
+<a href="">房间列表</a>
+</body>
+</html>

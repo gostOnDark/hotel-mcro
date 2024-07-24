@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎使用酒店管理系统</title>
+        <!--<link rel="stylesheet" href="/webjars/bootstrap/4.6.0/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="breadcrumb">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link disabled" th:href="@{/userInfo}">用户信息</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/setting">设置</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">登出</a>
+                </li>
+                <li class="nav-item"> <span style="color:red" th:text="${msg}"></span></li>
+            </ul>
+    </nav>
+    <div class="container-fluid">
+        <nav class="sidebar sidebar-offcanvas">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="/userPageInfo?pageNum=0&pageSize=10&orderField=id&orderType=1">用户列表</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">客房列表</a>
+                </li>
+                <li class="nav-item">
+
+                </li>
+                <li class="nav-item">
+
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.6.0/js/bootstrap.min.js}"></script>-->
+<script src="/static/jquery.js"></script>
+<script src="/static/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>

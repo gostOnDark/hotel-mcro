@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>聊天房间</title>
+</head>
+<body>
+传递来的cid:
+<input type="text" th:value="${cid}" id="cid">
+<p>[ToUserId]:</p>
+<div><input id="toUserId" name="toUserId" type="text" value="user-1"></div>
+<p>【消息】：
+<div><input id="receiveMsg" name="receiveMsg" type="text" value=""></div>
+<p>【操作】：</p>
+<div><input id="contentText" name="contentText" type="text" value="hello websocket"></div>
+<div>
+    <button type="button" onclick="sendMessage()">发送消息</button>
+</div>
+<script type="text/javascript">
+    var socket;
+    if(typeof(WebSocket)=="undefined"){
+        console.log("你的浏览器不支持WebSockect");
+    }else{
+        console.log("你的浏览器支持webSocket");
+            //实现化webSocket对象，指定要连接的服务器地址与端口，建立连接
+            var cid = document.getElementById("cid").value;
+            console.log("cid->"+cid);
+            var reqUrl = "http://localhost:8080/chat/to/"+cid;
+            socket = new WebSocket(reqUrl.replace("http","ws"));
+            //打开
+            socket.onopen=function(){
+                console.log("Socket一=已打开");
+                //socket.send("这是来自客户端的消息"+location.href+new Date());
+            };
+            //获取消息事件
+            socket.onmessage = function(msg){
+                console.log("onmessage--"+msg.data);
+                var receiveMsg = document.getElementById('receiveMsg');
+                receiveMsg.value = msg.data;
+                //发现消息
+            };
+            //关闭
+            socket.onclose = function(){
+             console.log("Socket已关闭");
+            };
+            //发生了错误事件
+        socket.onerror = function () {
+            alert("Socket发生了错误");
+            //此时可以尝试刷新页面
+        }
+        //离开页面时，关闭socket
+        //jquery1.8中已经被废弃，3.0中已经移除
+        // $(window).unload(function(){
+        //     socket.close();
+        //});
+        }
+        function sendMessage(){
+            if (typeof (WebSocket) == "undefined") {
+            console.log("您的浏览器不支持WebSocket");
+            } else {
+                // console.log("您的浏览器支持WebSocket");
+                var toUserId = document.getElementById('toUserId').value;
+                var contentText = document.getElementById('contentText').value;
+                var msg = '{"sid":"' + toUserId + '","message":"' + contentText + '"}';
+                console.log(msg);
+                socket.send(msg);
+            }
+        }
+</script>
+</body>
+</html>
